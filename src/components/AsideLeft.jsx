@@ -4,18 +4,32 @@ import CatergoriesList from './CatergoriesList';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function AsideLeft({ categories, setCategories, setIndex }) {
+function AsideLeft({ categories, setCategories, setIndex, leftIsVisible, setLeftIsVisible }) {
   const [openInput, setOpenInput] = useState(false);
   const [nameList, setNameList] = useState('');
   return (
-    <aside className=" shadow-md shadow-gray-500 w-40 h-full flex flex-col py-1 gap-y-6 md:w-56">
-
+    <aside
+      className={`${
+        leftIsVisible ? 'translate-x-0' : '-translate-x-full'
+      } transition-[transform] shadow-md shadow-gray-500 w-40 h-full flex flex-col py-1 gap-y-6 md:w-60 
+      absolute top-0 left-0 bg-gray-100 z-50 overflow-y-auto `}
+    >
       <div className="flex justify-end px-2 ">
-        <BtnIcon icon={XMarkIcon} />
+        <BtnIcon
+          icon={XMarkIcon}
+          onClick={() => {
+            setLeftIsVisible(false);
+          }}
+        />
       </div>
 
       <section>
-        <CatergoriesList categories={categories} setCategories={setCategories} setIndex={setIndex} />
+        <CatergoriesList
+          categories={categories}
+          setCategories={setCategories}
+          setIndex={setIndex}
+          setLeftIsVisible={setLeftIsVisible}
+        />
       </section>
 
       <div className="flex w-full px-2 flex-col">
@@ -41,7 +55,7 @@ function AsideLeft({ categories, setCategories, setIndex }) {
                     category: nameList.toLowerCase(),
                     icon: Square2StackIcon,
                     count: 0,
-                    added:true
+                    added: true,
                   },
                 ]);
               }}
@@ -68,6 +82,8 @@ AsideLeft.propTypes = {
   categories: PropTypes.array.isRequired,
   setCategories: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
+  leftIsVisible: PropTypes.bool.isRequired,
+  setLeftIsVisible: PropTypes.func.isRequired,
 };
 
 export default AsideLeft;

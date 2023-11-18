@@ -3,12 +3,18 @@ import BtnIcon from './BtnIcon';
 import Proptypes from 'prop-types';
 import BtnAdd from './BtnAdd';
 
-function HeaderBody({ index, categories }) {
+function HeaderBody({ index, categories, setLeftIsVisible }) {
   return (
     <>
       <section className="flex justify-between items-center w-full h-20 mt-8 px-5">
         <section className="flex items-start w-52 h-full gap-4 py-1">
-          <BtnIcon icon={Bars3Icon} className=" w-8 h-8 " />
+          <BtnIcon
+            icon={Bars3Icon}
+            className="h-20 w-20 aspect-square"
+            onClick={() => {
+              setLeftIsVisible(true);
+            }}
+          />
           <div className="-mt-4">
             <h3 className=" capitalize font-bold text-2xl">{categories[index].name}</h3>
             <span className=" text-xs opacity-80">{new Date().toLocaleDateString()}</span>
@@ -27,6 +33,7 @@ function HeaderBody({ index, categories }) {
 HeaderBody.propTypes = {
   index: Proptypes.number.isRequired,
   categories: Proptypes.array.isRequired,
+  setLeftIsVisible: Proptypes.func.isRequired,
 };
 
 export default HeaderBody;

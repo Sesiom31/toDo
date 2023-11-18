@@ -4,7 +4,7 @@ export const categories = [
   {
     id: 1,
     name: 'Mi Día',
-    category: 'day',
+    category: 'dia',
     icon: SunIcon,
     count: 0,
     added:false
@@ -12,7 +12,7 @@ export const categories = [
   {
     id: 2,
     name: 'Importante',
-    category: 'important',
+    category: 'importante',
     icon: StarIcon,
     count: 0,
     added:false
@@ -20,7 +20,7 @@ export const categories = [
   {
     id: 3,
     name: 'Planeado',
-    category: 'planned',
+    category: 'planeado',
     icon: CalendarDaysIcon,
     count: 0,
     added:false
@@ -28,7 +28,7 @@ export const categories = [
   {
     id: 4,
     name: 'Tareas',
-    category: 'tasks',
+    category: 'tareas',
     icon: ListBulletIcon,
     count: 0,
     added:false
