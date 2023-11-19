@@ -1,12 +1,20 @@
 import BtnIcon from './BtnIcon';
 import { Square2StackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import CatergoriesList from './CatergoriesList';
-import { useState } from 'react';
+import { useState} from 'react';
 import PropTypes from 'prop-types';
 
-function AsideLeft({ categories, setCategories, setIndex, leftIsVisible, setLeftIsVisible }) {
+function AsideLeft({
+  categories,
+  setCategories,
+  setIndex,
+  leftIsVisible,
+  setLeftIsVisible,
+  tareas,
+}) {
   const [openInput, setOpenInput] = useState(false);
   const [nameList, setNameList] = useState('');
+
   return (
     <aside
       className={`${
@@ -29,6 +37,7 @@ function AsideLeft({ categories, setCategories, setIndex, leftIsVisible, setLeft
           setCategories={setCategories}
           setIndex={setIndex}
           setLeftIsVisible={setLeftIsVisible}
+          tareas={tareas}
         />
       </section>
 
@@ -73,6 +82,7 @@ function AsideLeft({ categories, setCategories, setIndex, leftIsVisible, setLeft
             Añadir una lista...
           </button>
         )}
+
       </div>
     </aside>
   );
@@ -84,6 +94,7 @@ AsideLeft.propTypes = {
   setIndex: PropTypes.func.isRequired,
   leftIsVisible: PropTypes.bool.isRequired,
   setLeftIsVisible: PropTypes.func.isRequired,
+  tareas: PropTypes.array.isRequired,
 };
 
 export default AsideLeft;

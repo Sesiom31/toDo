@@ -2,12 +2,18 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
 
-function List({ categorie, setCategories, setIndex, setLeftIsVisible }) {
+function List({ categorie, setCategories, setIndex, setLeftIsVisible, tareas }) {
+  let count = 0;
+  tareas.forEach((tarea) => {
+    if (tarea.categories.includes(categorie.category)) {
+      count++;
+    }
+  });
+
   return (
     <li
       className="flex justify-between items-center w-full h-12 pr-3.5 pl-1 cursor-pointer hover:bg-gray-300"
       onClick={(e) => {
-        console.log('li');
         e.stopPropagation();
         setIndex(categorie.id - 1);
         setLeftIsVisible(false);
@@ -31,14 +37,14 @@ function List({ categorie, setCategories, setIndex, setLeftIsVisible }) {
             }}
           />
         )}
-        <span className="text-sm">{categorie.count}</span>
+        <span className="text-sm">{count}</span>
       </div>
     </li>
   );
 }
 
-function CatergoriesList({ categories, setCategories, setIndex, setLeftIsVisible }) {
-  console.log(categories);
+function CatergoriesList({ categories, setCategories, setIndex, setLeftIsVisible, tareas }) {
+  /* console.log(categories); */
   return (
     <ul>
       {categories.map((categorie) => (
@@ -48,6 +54,7 @@ function CatergoriesList({ categories, setCategories, setIndex, setLeftIsVisible
           setCategories={setCategories}
           setIndex={setIndex}
           setLeftIsVisible={setLeftIsVisible}
+          tareas={tareas}
         />
       ))}
     </ul>
@@ -59,6 +66,7 @@ List.propTypes = {
   setCategories: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
   setLeftIsVisible: PropTypes.func.isRequired,
+  tareas: PropTypes.array.isRequired,
 };
 
 CatergoriesList.propTypes = {
@@ -66,6 +74,7 @@ CatergoriesList.propTypes = {
   setCategories: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
   setLeftIsVisible: PropTypes.func.isRequired,
+  tareas: PropTypes.array.isRequired,
 };
 
 export default CatergoriesList;

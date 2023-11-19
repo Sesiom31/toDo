@@ -6,7 +6,7 @@ export const tareasList = [
     date_start: ' 18/11/2023',
     date_end: ' 19/11/2023',
     important: false,
-    categories: ['tareas, day'],
+    categories: ['tareas', 'dia'],
     pasos: [],
   },
   {
@@ -16,7 +16,7 @@ export const tareasList = [
     date_start: ' 18/11/2023',
     date_end: '',
     important: false,
-    categories: ['tareas, dia'],
+    categories: ['tareas', 'dia'],
     pasos: [],
   },
   {
@@ -36,13 +36,13 @@ export const tareasList = [
     date_start: ' 20/11/2023',
     date_end: ' 22/11/2023',
     important: true,
-    categories: ['tareas', 'day', 'importante'],
+    categories: ['tareas', 'dia', 'importante'],
     pasos: [],
   },
   {
     id: 5,
     description: 'Ver el planeta de los simios',
-    completed: false,
+    completed: true,
     date_start: ' 24/05/2024',
     date_end: '',
     important: false,
