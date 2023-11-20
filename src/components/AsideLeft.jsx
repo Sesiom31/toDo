@@ -1,7 +1,7 @@
 import BtnIcon from './BtnIcon';
 import { Square2StackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import CatergoriesList from './CatergoriesList';
-import { useState} from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function AsideLeft({
@@ -18,9 +18,9 @@ function AsideLeft({
   return (
     <aside
       className={`${
-        leftIsVisible ? 'translate-x-0' : '-translate-x-full'
-      } transition-[transform] shadow-md shadow-gray-500 w-40 h-full flex flex-col py-1 gap-y-6 md:w-60 
-      absolute top-0 left-0 bg-gray-100 z-50 overflow-y-auto `}
+        leftIsVisible ? 'w-40 md:w-60' : 'w-0'
+      } transition-[width] shadow-md shadow-gray-500  h-full flex flex-col py-1 gap-y-6  
+      relative top-0 left-0 bg-gray-100 z-50 overflow-y-auto will-change-[width] `}
     >
       <div className="flex justify-end px-2 ">
         <BtnIcon
@@ -82,7 +82,6 @@ function AsideLeft({
             Añadir una lista...
           </button>
         )}
-
       </div>
     </aside>
   );

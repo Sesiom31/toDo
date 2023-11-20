@@ -7,7 +7,7 @@ function Main({ categories, index, tareas, setTareas }) {
   );
 
   return (
-    <main className=" absolute left-0 right-0 bottom-0 h-[calc(100%-220px)] px-2 overflow-hidden overflow-y-auto  ">
+    <main className=" relative left-0 right-0 bottom-0 h-[calc(100%-200px)] mt-0.5 overflow-auto   ">
       <TareasList tareasList={tareaDisplay} setTareas={setTareas} />
     </main>
   );

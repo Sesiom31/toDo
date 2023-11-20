@@ -6,7 +6,7 @@ import BtnAdd from './BtnAdd';
 function HeaderBody({ index, categories, setLeftIsVisible, setTareas, id }) {
   return (
     <>
-      <section className="flex justify-between items-center w-full h-20 mt-8 px-5 relative z-40">
+      <section className="flex justify-between items-center w-auto h-20 mt-8 px-5 relative z-40 mx-4">
         <section className="flex items-start w-52 h-full gap-4 py-1">
           <BtnIcon
             icon={Bars3Icon}

@@ -8,4 +8,94 @@
   }
 }
 
+/* styles.css o tu archivo de estilos */
+.react-datepicker {
+  font-size: 0.8rem; /* Tamaño de la fuente del calendario */
+  position: absolute;
+  background-color: rgba(234, 90, 12, 0.999);
+  z-index: 999;
+  top: 20px;
+  left: 20px;
+}
 
+.react-datepicker__month-container {
+  width: 210px; /* Ancho del contenedor del mes */
+  border: none;
+  padding: 5px;
+}
+
+.react-datepicker__day {
+  font-size: 0.78rem;
+  margin: 0.4px;
+  width: calc(100% / 7); /* Ancho de cada día */
+  height: 22px; /* Altura de cada día */
+  line-height: 25px; /* Alineación vertical de cada día */
+  color: #fff;
+}
+
+.react-datepicker__day:hover{
+  color: rgba(234, 90, 12, 0.999);
+  font-weight: bold;
+  background-color: #fff;
+} 
+
+.react-datepicker__header {
+  background-color: rgba(234, 90, 12, 0.823);
+  padding: 8px 4px;
+  color: #fff;
+}
+
+.react-datepicker__day--selected {
+  background-color: rgba(234, 90, 12, 0.999);
+  color: #fff;
+}
+
+.react-datepicker__day-name {
+  width: calc(100% / 7); /* Ancho de cada día */
+  height: 22px; /* Altura de cada día */
+  line-height: 25px; /* Alineación vertical de cada día */
+  font-size: 0.8rem;
+  margin: 0.4px;
+  color: #fff;
+}
+
+.react-datepicker__day-names {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.react-datepicker__current-month {
+  color: #fff;
+}
+
+.react-datepicker__week {
+  display: flex;
+  justify-items: center;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+  border-color: #20537a;
+  border-style: solid;
+  border-width: 3px 3px 0 0;
+  content: '';
+  display: block;
+  height: 9px;
+  position: absolute;
+  top: 16px;
+  width: 9px;
+}
+
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+    border-radius: 0.3rem;
+    background-color: #20537a;
+    color: #fff;
+}
+
+.react-datepicker__day--disabled{
+  opacity: 0.5;
+}

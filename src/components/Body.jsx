@@ -11,10 +11,10 @@ function Body() {
   const [leftIsVisible, setLeftIsVisible] = useState(false);
   const [tareas, setTareas] = useState(tareasList);
 
-  const nextId = tareas.length + 1
+  const nextId = tareas.length + 1;
 
   return (
-    <div className="w-full h-[calc(100%-3.5rem)] p-0.5 md:p-2 relative overflow-y-hidden">
+    <div className="w-full h-[calc(100%-3.5rem)]   relative overflow-y-hidden flex grow shrink ">
       <AsideLeft
         categories={categories}
         setCategories={setCategories}
@@ -23,15 +23,20 @@ function Body() {
         setLeftIsVisible={setLeftIsVisible}
         tareas={tareas}
       />
-      <HeaderBody
-        index={index}
-        categories={categories}
-        setLeftIsVisible={setLeftIsVisible}
-        setTareas={setTareas}
-        id={nextId}
-      />
 
-      <Main tareas={tareas} categories={categories} index={index} setTareas={setTareas} />
+      <section
+        className={`transition-[width] h-full overflow-hidden w-full flex flex-col relative will-change-[width] `}
+      >
+        <HeaderBody
+          index={index}
+          categories={categories}
+          setLeftIsVisible={setLeftIsVisible}
+          setTareas={setTareas}
+          id={nextId}
+        />
+
+        <Main tareas={tareas} categories={categories} index={index} setTareas={setTareas} />
+      </section>
     </div>
   );
 }

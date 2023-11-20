@@ -1,21 +1,25 @@
-import { CalendarDaysIcon, StarIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, StarIcon } from '@heroicons/react/24/solid';
 import BtnIcon from './BtnIcon';
 import { useState, useRef, useEffect } from 'react';
 import Proptypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function BtnAdd({ setTareas, id, categories, index }) {
   const [openInput, setOpenInput] = useState(false);
+  const [calenderIsOpen, setCalenderIsOpen] = useState(false);
   const [newTarea, setNewTarea] = useState({
     id: 0,
     description: '',
     completed: false,
-    date_start: ' 24/12/2023',
+    date_start: '',
     date_end: '',
     important: false,
     categories: ['tareas'],
     pasos: [],
   });
   const inputRef = useRef(null);
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     if (openInput) {
@@ -23,9 +27,24 @@ function BtnAdd({ setTareas, id, categories, index }) {
     }
   });
 
+  useEffect(() => {
+    console.log('efect calendar');
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setCalenderIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <section className="w-full h-12 md:h-14 shadow-inner shadow-gray-700 rounded-md overflow-hidden flex flex-col justify-center items-center px-4 ">
+      <section className="w-auto h-12 md:h-14 shadow-inner shadow-gray-700 rounded-md overflow-hidden flex flex-col justify-center items-center px-4 mx-4  relative   ">
         {!openInput ? (
           <button
             className="w-full h-full  flex justify-between items-center"
@@ -47,7 +66,8 @@ function BtnAdd({ setTareas, id, categories, index }) {
                 value={newTarea.description}
                 type="text"
                 placeholder="Agregar Tarea"
-                className=" h-[80%]  w-[95%] text-[0.9rem] placeholder:text-[0.9rem] placheloder:textgray-500  outline-none px-20 pb-1 md:pb-0.5 "
+                className=" h-[80%]  w-[95%] text-[0.9rem] placeholder:text-[0.9rem] 
+                placheloder:textgray-500  outline-none px-20 pb-1 md:pb-0.5 "
                 onChange={(e) => {
                   setNewTarea({ ...newTarea, description: e.target.value });
                 }}
@@ -58,19 +78,50 @@ function BtnAdd({ setTareas, id, categories, index }) {
         )}
       </section>
       {openInput && (
-        <div className="px-3 flex justify-between w-full mt-2">
+        <div className="px-3 flex justify-between w-auto mt-2 mx-4">
           <div className="flex gap-8 items-center">
-            <BtnIcon icon={CalendarDaysIcon} className="text-orange-600" />
-            <BtnIcon
-              icon={StarIcon}
-              className="text-orange-600"
-              onClick={() => setNewTarea({ ...newTarea, important: true })}
-            />
+            <div className="relative flex items-center" title="Ingresa una fecha de vencimiento">
+              <BtnIcon
+                icon={CalendarDaysIcon}
+                className="text-orange-600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log('hola');
+                  setCalenderIsOpen(!calenderIsOpen);
+                }}
+              />
+              {calenderIsOpen && (
+                <div ref={calendarRef}>
+                  <DatePicker
+                    inline
+                    minDate={new Date()}
+                    onChange={(date) => {
+                      setNewTarea({ ...newTarea, date_end: date });
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div title="Marcar como importante" className="flex items-center">
+              <BtnIcon
+                icon={StarIcon}
+                className={`${newTarea.important ? 'text-orange-600' : ' text-gray-400 '} ${
+                  categories[index].category === 'importante' && 'text-orange-600 '
+                } `}
+                onClick={() => {
+                  setNewTarea({ ...newTarea, important: !newTarea.important });
+                }}
+              />
+            </div>
           </div>
           <span className="flex items-center">
             <button
               type="button"
-              className="bg-orange-600 text-gray-200 py-1 px-3 pb-1.5 text-xs rounded-md hover:bg-orange-500"
+              className={`${
+                newTarea.description.trim() === '' ? 'opacity-70 hover:bg-orange-600' : ''
+              } bg-orange-600 text-gray-200 py-1 px-3 pb-1.5 text-xs rounded-md hover:bg-orange-700`}
+              disabled={newTarea.description.trim() === ''}
               onClick={() => {
                 console.log(newTarea);
                 setOpenInput(false);
@@ -79,11 +130,19 @@ function BtnAdd({ setTareas, id, categories, index }) {
                   {
                     ...newTarea,
                     id: id,
-                    categories: [...newTarea.categories, categories[index].category],
+                    date_start: new Date(),
+                    important: categories[index].category === 'importante' ? true : false,
+                    categories: [
+                      ...newTarea.categories,
+                      categories[index].category,
+                      newTarea.important ? 'importante' : '',
+                    ],
                   },
                 ]);
                 setNewTarea({
                   ...newTarea,
+                  date_start: '',
+                  date_end: '',
                   description: '',
                   important: false,
                   categories: ['tareas'],
