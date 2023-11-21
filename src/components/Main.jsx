@@ -7,7 +7,7 @@ function Main({ categories, index, tareas, setTareas, setIdTarea, setRightIsVisi
   );
 
   return (
-    <main className=" relative  h-[calc(100%)] w-full my-5 overflow-y-auto overflow-x-hidden  ">
+    <main className=" relative  h-[calc(100%)] w-full my-5 overflow-y-auto overflow-x-hidden grow shrink  ">
       <TareasList
         tareasList={tareaDisplay}
         setTareas={setTareas}

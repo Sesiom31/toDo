@@ -4,6 +4,10 @@ import Proptypes from 'prop-types';
 import BtnAdd from './BtnAdd';
 
 function HeaderBody({ index, categories, setLeftIsVisible, setTareas, id }) {
+
+
+  
+
   return (
     <>
       <section className="flex justify-between items-center w-auto h-16 mt-6 px-4 relative z-40 md:px-3 lg:py-4 ">
@@ -16,12 +20,19 @@ function HeaderBody({ index, categories, setLeftIsVisible, setTareas, id }) {
             }}
           />
           <div className="-mt-4">
-            <h3 className=" capitalize font-semibold tracking-widest text-2xl">{categories[index].name}</h3>
+            <h3 className=" capitalize font-semibold tracking-widest text-2xl">
+              {categories[index].name}
+            </h3>
             <span className=" text-xs opacity-80">{new Date().toLocaleDateString()}</span>
           </div>
         </section>
 
-        <div className="flex items-start h-full py-1">
+        <div
+          className="flex items-start h-full py-1"
+          onClick={() => {
+            setTareas(prevTareas => [...prevTareas].reverse())            
+          }}
+        >
           <BtnIcon icon={ArrowsUpDownIcon} className="" />
         </div>
       </section>

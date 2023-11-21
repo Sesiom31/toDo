@@ -7,18 +7,37 @@ import { tareasList } from '../data/tareas';
 import AsideRight from './AsideRight';
 
 function Body() {
-  const [index, setIndex] = useState(0);
-  const [categories, setCategories] = useState(categoriesArray);
-  const [leftIsVisible, setLeftIsVisible] = useState(false);
-  const [rightIsVisible, setRightIsVisible] = useState(false);
   const [tareas, setTareas] = useState(tareasList);
-  const [idTarea, setIdTarea] = useState(0);
+  const [index, setIndex] = useState(0); // indice categoria
+  const [categories, setCategories] = useState(categoriesArray); // lista categorias
+  const [leftIsVisible, setLeftIsVisible] = useState(false); // estado del aside izquierdo
+  const [rightIsVisible, setRightIsVisible] = useState(false); // estado del aside derecho
+  const [idTarea, setIdTarea] = useState(0); // id de la tarea
 
-  const nextId = tareas.length + 1;
+  const nextId = tareas.length + 1; // id de la siguiente tarea
+  
+  let tarea = tareas.find((t) => t.id === idTarea); // tarea actual
+
+  if (tarea === undefined) {
+    tarea = {
+      id: 1,
+      description: ' ',
+      completed: false,
+      date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
+      date_end: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
+      important: false,
+      categories: ['tareas'],
+      pasos: [],
+    };
+  }
+
+  console.log(tarea);
 
   return (
     <div
-      className={`${!rightIsVisible && 'md:gap-0 md:px-2'} w-auto h-[calc(100%-3.5rem)]  relative overflow-hidden flex grow-[2] shrink-[2] md:gap-3`}
+      className={`${!rightIsVisible && 'md:gap-0 md:pr-2'} ${
+        leftIsVisible && 'pl-0'
+      } w-auto h-[calc(100%-3.5rem)]  relative overflow-hidden flex grow shrink md:gap-3`}
     >
       <AsideLeft
         categories={categories}
@@ -51,8 +70,7 @@ function Body() {
       </section>
 
       <AsideRight
-        idTarea={idTarea}
-        tareas={tareas}
+        tarea={tarea}
         setTareas={setTareas}
         rightIsVisible={rightIsVisible}
         setRightIsVisible={setRightIsVisible}

@@ -29,7 +29,9 @@ export function Tarea({ tarea, setTareas, setIdTarea, setRightIsVisible }) {
 
   return (
     <li
-      className={` ${!setIdTarea && 'h-auto py-2'} flex justify-between items-center w-auto h-16 mx-1 px-3  shadow-sm shadow-gray-600 
+      className={` ${
+        !setIdTarea && 'h-auto py-2'
+      } flex justify-between items-center w-auto h-16 mx-1 px-3  shadow-sm shadow-gray-600 
      rounded-md  md:mx-0  `}
       onClick={() => {
         setRightIsVisible(true);
@@ -38,7 +40,7 @@ export function Tarea({ tarea, setTareas, setIdTarea, setRightIsVisible }) {
         }
       }}
     >
-      <div className="flex items-center gap-4 md:gap-8 lg:gap-16 h-full ">
+      <div className={`${!setIdTarea && 'lg:gap-5'} flex items-center gap-4 md:gap-8 lg:gap-16 h-full `}>
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -58,8 +60,8 @@ export function Tarea({ tarea, setTareas, setIdTarea, setRightIsVisible }) {
         <div className=" flex flex-col justify-center gap-2 h-full">
           <h4
             className={`${
-              !setIdTarea  && 'line-clamp-none w-[14.5rem] sm:w-[30rem] md:w-[8rem]  '
-            }  font-medium text-lg tracking-wider w-40 line-clamp-1 `}
+              !setIdTarea && 'line-clamp-none w-[14.5rem] sm:w-[30rem] md:w-[8rem] lg:w-[15rem]  '
+            }  font-medium text-lg tracking-wider w-40 line-clamp-1 md:w-96 `}
           >
             {tarea.description}
           </h4>
