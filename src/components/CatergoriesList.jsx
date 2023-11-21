@@ -12,7 +12,8 @@ function List({ categorie, setCategories, setIndex, tareas }) {
 
   return (
     <li
-      className="flex justify-between items-center w-full h-12 pr-3.5 pl-1 cursor-pointer hover:bg-gray-300"
+      className="flex justify-between items-center w-full h-12 pr-3.5 pl-1 cursor-pointer hover:bg-gray-300
+      dark:hover:bg-zinc-400 dark:hover:text-gray-200 dark:hover:bg-opacity-20  "
       onClick={(e) => {
         e.stopPropagation();
         setIndex(categorie.id - 1);

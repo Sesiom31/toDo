@@ -39,7 +39,8 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
       className={`${
         rightIsVisible ? 'w-full md:w-[500px] md:px-2 lg:w-[600px]' : 'w-0'
       } transition-[width] shadow-sm shadow-gray-500  h-full flex flex-col  gap-4  grow shrink 
-      absolute right-0  md:relative bg-white z-50 overflow-hidden overflow-y-auto md:will-change-[width] py-4 `}
+      absolute right-0  md:relative bg-white z-50 overflow-hidden overflow-y-auto md:will-change-[width] py-4
+      dark:bg-zinc-600 dark:text-gray-200 dark:shadow-none `}
     >
       <Tarea tarea={tarea} setTareas={setTareas} />
       <section className="mt-1 mx-1">
@@ -47,7 +48,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
           {!openUpdate ? (
             <button
               type="button"
-              className="w-full h-10  shadow-md shadow-gray-500 rounded-md text-orange-600 font-normal text-[0.9rem] text-left px-12 "
+              className="w-full h-10  shadow-md shadow-gray-500 rounded-md text-orange-600 font-normal text-[0.9rem] text-left px-12  dark:bg-zinc-700 dark:shadow-none dark:pb-0 dark:text-orange-500"
               onClick={() => setOpenUpdate(true)}
             >
               Actualizar descripción
@@ -61,7 +62,8 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                 placeholder="Actualizar descripción"
                 className="w-full shadow-md shadow-gray-500 
                             rounded-md font-normal text-sm placeholder:text-left placeholder:font-light text-gray-700 
-                            outline-none border-none px-12 h-auto py-3 resize-none min-h-[1rem] overflow-hidden "
+                            outline-none border-none px-12 h-auto py-3 resize-none min-h-[1rem] overflow-hidden
+                            dark:bg-zinc-700 dark:text-gray-200  "
               >
                 {tarea.description}
               </textarea>
@@ -77,7 +79,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                       return newTareas;
                     });
                   }}
-                  className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto`}
+                  className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto dark:bg-orange-600`}
                 >
                   Actualizar
                 </button>
@@ -92,7 +94,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
           {!addPasos ? (
             <button
               type="button"
-              className="w-full h-10  shadow-md shadow-gray-500 rounded-md text-orange-600 font-normal text-[0.9rem] text-left px-12 "
+              className="w-full h-10  shadow-md shadow-gray-500 rounded-md text-orange-600 font-normal text-[0.9rem] text-left px-12 dark:bg-zinc-700 dark:shadow-none dark:pb-0 dark:text-orange-500 "
               onClick={() => setAddPasos(true)}
             >
               Agregar paso
@@ -107,7 +109,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                 placeholder="Agregar paso"
                 className="w-full h-10  shadow-md shadow-gray-500 
                             rounded-md font-normal text-sm placeholder:text-left placeholder:font-light text-gray-700 
-                            outline-none border-none px-12 "
+                            outline-none border-none px-12  dark:bg-zinc-700 dark:text-gray-200  "
               />
               {descriptionPasos.trim() !== '' && (
                 <button
@@ -133,7 +135,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                       return newTareas;
                     });
                   }}
-                  className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto`}
+                  className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto dark:bg-orange-600`}
                 >
                   Agregar paso
                 </button>
@@ -148,18 +150,18 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
       </section>
 
       <section className="flex absolute justify-between w-full  px-10 bottom-0 py-5">
-        <span className="flex items-center relative" data-tooltip="Ocultar ">
+        <span className="flex items-center relative" data-tooltip="Ocultar Panel">
           <BtnIcon icon={ArrowRightOnRectangleIcon} onClick={() => setRightIsVisible(false)} />
         </span>
         <span
           className="flex items-center relative "
           data-tooltip="Eliminar tarea"
           onClick={() => {
-            setRightIsVisible(false)
+            setRightIsVisible(false);
             setTareas((prevTareas) => {
               const newTareas = prevTareas.filter((t) => t.id !== tarea.id);
               return newTareas;
-             })
+            });
           }}
         >
           <BtnIcon icon={TrashIcon} />

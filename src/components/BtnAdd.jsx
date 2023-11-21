@@ -25,7 +25,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
     if (openInput) {
       inputRef.current.focus();
     }
-  });
+  }, [openInput]);
 
   useEffect(() => {
     console.log('efect calendar');
@@ -44,30 +44,34 @@ function BtnAdd({ setTareas, id, categories, index }) {
 
   return (
     <>
-      <section className="w-auto h-12 md:h-14 shadow-md shadow-gray-700 rounded-md overflow-hidden flex flex-col justify-center items-center px-3 mx-1 relative md:mx-0 md:mt-5 ">
+      <section
+        className="w-auto h-12 md:h-14 shadow-md shadow-gray-700 rounded-md overflow-hidden 
+      flex flex-col justify-center items-center px-3 mx-1 relative md:mx-0 md:mt-5 md:mr-2 dark:bg-zinc-700 "
+      >
         {!openInput ? (
           <button
             className="w-full h-full  flex justify-between items-center"
             onClick={() => setOpenInput(true)}
           >
             <div className="flex items-center gap-8 w-10/12 h-full md:gap-16">
-              <span className="w-4 h-4 border border-orange-600 block rounded-full"></span>
-              <h3 className="text-[0.9rem] text-orange-600">Agregar Tarea</h3>
+              <span className="w-4 h-4 border border-orange-600 block rounded-full dark:border-orange-500"></span>
+              <h3 className="text-[0.9rem] text-orange-600 dark:text-orange-400 dark:font-extralight">Agregar Tarea</h3>
             </div>
 
             <span></span>
           </button>
         ) : (
-          <section className="w-full h-full flex items-start justify-between ">
-            <div className=" w-full h-full rounded-md flex items-center ">
-              <span className="border border-orange-600 h-4 w-4 rounded-full"></span>
+          <section className="w-full h-full flex items-center justify-between  ">
+            <div className=" w-full h-full rounded-md flex items-center pt-0.5 ">
+              <span className="border border-orange-600 h-4 w-4 rounded-full dark:text-orange-500 "></span>
               <input
                 ref={inputRef}
                 value={newTarea.description}
                 type="text"
                 placeholder="Agregar Tarea"
                 className=" h-[80%]  w-[95%] text-[0.9rem] placeholder:text-[0.9rem] 
-                placheloder:textgray-500  outline-none px-8 pb-1 md:pb-0.5 md:px-16 "
+                 placeholder:text-gray-400 pt-0.5 placeholder:pt-0.5  outline-none px-8  
+                md:px-16 dark:bg-zinc-700 dark:text-white dark:shadow-none "
                 onChange={(e) => {
                   setNewTarea({ ...newTarea, description: e.target.value });
                 }}
@@ -80,13 +84,10 @@ function BtnAdd({ setTareas, id, categories, index }) {
       {openInput && (
         <div className="px-3 flex justify-between w-auto mt-2 mx-4">
           <div className="flex gap-8 items-center">
-            <div
-              className="relative flex items-center"
-              data-tooltip="Ingresar una fecha de vencimiento"
-            >
+            <div className="relative flex items-center" title="Ingresar una fecha de vencimiento">
               <BtnIcon
                 icon={CalendarDaysIcon}
-                className="text-orange-600"
+                className="text-orange-600 dark:text-orange-500"
                 onClick={(e) => {
                   e.stopPropagation();
                   console.log('hola');
@@ -106,7 +107,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
               )}
             </div>
 
-            <div data-tooltip="Marcar como importante" className="flex items-center">
+            <div title="Marcar como importante" className="flex items-center">
               <BtnIcon
                 icon={StarIcon}
                 className={`${newTarea.important ? 'text-orange-600' : ' text-gray-400 '} ${

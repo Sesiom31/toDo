@@ -27,7 +27,8 @@ function AsideLeft({
       className={`${
         leftIsVisible ? 'w-48 sm:w-56 md:w-60 lg:w-72 xl:w-80' : 'w-0'
       } transition-[width] shadow-md shadow-gray-500  h-full flex flex-col py-1 gap-y-6  pb-4
-      absolute md:relative top-0 left-0 bg-gray-100 z-50 overflow-y-auto will-change-[width]  `}
+      absolute md:relative top-0 left-0 bg-gray-100 z-50 overflow-y-auto will-change-[width]
+      dark:bg-zinc-600 dark:text-gray-200 dark:shadow-zinc-700 dark:shadow-md dark:border-none `}
     >
       <div className="flex justify-end px-2 ">
         <BtnIcon
