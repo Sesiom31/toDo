@@ -2,7 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
 
-function List({ categorie, setCategories, setIndex, setLeftIsVisible, tareas }) {
+function List({ categorie, setCategories, setIndex, tareas }) {
   let count = 0;
   tareas.forEach((tarea) => {
     if (tarea.categories.includes(categorie.category)) {
@@ -16,19 +16,20 @@ function List({ categorie, setCategories, setIndex, setLeftIsVisible, tareas }) 
       onClick={(e) => {
         e.stopPropagation();
         setIndex(categorie.id - 1);
-        setLeftIsVisible(false);
       }}
     >
-      <section className="flex items-center gap-2">
+      <section className="flex items-center gap-2 ">
         <BtnIcon icon={categorie.icon} />
-        <h3 className="text-sm capitalize ">{categorie.name}</h3>
+        <h3 className="text-sm capitalize  w-[5.5rem] line-clamp-1 ">{categorie.name}</h3>
       </section>
 
       <div className=" flex items-center gap-2">
         {categorie.added && (
+          <span data-tooltip='Eliminar lista'>
+
           <BtnIcon
             icon={TrashIcon}
-            className="w-4 h-4"
+            className="w-[18px] h-[18px] p-0"
             onClick={(e) => {
               console.log('delete');
               e.stopPropagation();
@@ -36,6 +37,7 @@ function List({ categorie, setCategories, setIndex, setLeftIsVisible, tareas }) 
               setCategories((prevState) => prevState.filter((cat) => cat.id !== categorie.id));
             }}
           />
+          </span>
         )}
         <span className="text-sm">{count}</span>
       </div>
@@ -43,7 +45,7 @@ function List({ categorie, setCategories, setIndex, setLeftIsVisible, tareas }) 
   );
 }
 
-function CatergoriesList({ categories, setCategories, setIndex, setLeftIsVisible, tareas }) {
+function CatergoriesList({ categories, setCategories, setIndex, tareas }) {
   /* console.log(categories); */
   return (
     <ul>
@@ -53,7 +55,6 @@ function CatergoriesList({ categories, setCategories, setIndex, setLeftIsVisible
           categorie={categorie}
           setCategories={setCategories}
           setIndex={setIndex}
-          setLeftIsVisible={setLeftIsVisible}
           tareas={tareas}
         />
       ))}
@@ -65,7 +66,6 @@ List.propTypes = {
   categorie: PropTypes.object.isRequired,
   setCategories: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
-  setLeftIsVisible: PropTypes.func.isRequired,
   tareas: PropTypes.array.isRequired,
 };
 
@@ -73,7 +73,6 @@ CatergoriesList.propTypes = {
   categories: PropTypes.array.isRequired,
   setCategories: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
-  setLeftIsVisible: PropTypes.func.isRequired,
   tareas: PropTypes.array.isRequired,
 };
 

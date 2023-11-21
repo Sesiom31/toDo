@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,9 @@
   }
 }
 
+*{
+  font-family: 'Poppins', sans-serif;
+}
 /* styles.css o tu archivo de estilos */
 .react-datepicker {
   font-size: 0.8rem; /* Tamaño de la fuente del calendario */
@@ -98,4 +103,35 @@
 
 .react-datepicker__day--disabled{
   opacity: 0.5;
+}
+
+
+/* Tooltip */
+
+*[data-tooltip] {
+  position: relative;
+
+}
+
+*[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -150%;  /* Ajusta este valor según sea necesario para la posición deseada */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  width: auto;
+  white-space: nowrap;
+  display: none;
+  font-size: 0.8rem;
+  overflow: hidden;
+}
+
+*[data-tooltip]:hover::before {
+  display: block;
+  overflow: hidden;
+
 }

@@ -44,13 +44,13 @@ function BtnAdd({ setTareas, id, categories, index }) {
 
   return (
     <>
-      <section className="w-auto h-12 md:h-14 shadow-inner shadow-gray-700 rounded-md overflow-hidden flex flex-col justify-center items-center px-4 mx-4  relative   ">
+      <section className="w-auto h-12 md:h-14 shadow-md shadow-gray-700 rounded-md overflow-hidden flex flex-col justify-center items-center px-3 mx-1 relative md:mx-0 md:mt-5 ">
         {!openInput ? (
           <button
             className="w-full h-full  flex justify-between items-center"
             onClick={() => setOpenInput(true)}
           >
-            <div className="flex items-center gap-20 w-10/12 h-full">
+            <div className="flex items-center gap-8 w-10/12 h-full md:gap-16">
               <span className="w-4 h-4 border border-orange-600 block rounded-full"></span>
               <h3 className="text-[0.9rem] text-orange-600">Agregar Tarea</h3>
             </div>
@@ -67,7 +67,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
                 type="text"
                 placeholder="Agregar Tarea"
                 className=" h-[80%]  w-[95%] text-[0.9rem] placeholder:text-[0.9rem] 
-                placheloder:textgray-500  outline-none px-20 pb-1 md:pb-0.5 "
+                placheloder:textgray-500  outline-none px-8 pb-1 md:pb-0.5 md:px-16 "
                 onChange={(e) => {
                   setNewTarea({ ...newTarea, description: e.target.value });
                 }}
@@ -80,7 +80,10 @@ function BtnAdd({ setTareas, id, categories, index }) {
       {openInput && (
         <div className="px-3 flex justify-between w-auto mt-2 mx-4">
           <div className="flex gap-8 items-center">
-            <div className="relative flex items-center" title="Ingresa una fecha de vencimiento">
+            <div
+              className="relative flex items-center"
+              data-tooltip="Ingresar una fecha de vencimiento"
+            >
               <BtnIcon
                 icon={CalendarDaysIcon}
                 className="text-orange-600"
@@ -103,7 +106,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
               )}
             </div>
 
-            <div title="Marcar como importante" className="flex items-center">
+            <div data-tooltip="Marcar como importante" className="flex items-center">
               <BtnIcon
                 icon={StarIcon}
                 className={`${newTarea.important ? 'text-orange-600' : ' text-gray-400 '} ${
@@ -115,43 +118,43 @@ function BtnAdd({ setTareas, id, categories, index }) {
               />
             </div>
           </div>
-          <span className="flex items-center">
-            <button
-              type="button"
-              className={`${
-                newTarea.description.trim() === '' ? 'opacity-70 hover:bg-orange-600' : ''
-              } bg-orange-600 text-gray-200 py-1 px-3 pb-1.5 text-xs rounded-md hover:bg-orange-700`}
-              disabled={newTarea.description.trim() === ''}
-              onClick={() => {
-                console.log(newTarea);
-                setOpenInput(false);
-                setTareas((prevState) => [
-                  ...prevState,
-                  {
+
+          {newTarea.description.trim() !== '' && (
+            <span className="flex items-center ">
+              <button
+                type="button"
+                className={` bg-orange-600 text-gray-200 py-1 px-3 pb-1.5 text-xs rounded-md hover:bg-orange-700`}
+                onClick={() => {
+                  console.log(newTarea);
+                  setOpenInput(false);
+                  setTareas((prevState) => [
+                    ...prevState,
+                    {
+                      ...newTarea,
+                      id: id,
+                      date_start: new Date(),
+                      important: categories[index].category === 'importante' ? true : false,
+                      categories: [
+                        ...newTarea.categories,
+                        categories[index].category,
+                        newTarea.important ? 'importante' : '',
+                      ],
+                    },
+                  ]);
+                  setNewTarea({
                     ...newTarea,
-                    id: id,
-                    date_start: new Date(),
-                    important: categories[index].category === 'importante' ? true : false,
-                    categories: [
-                      ...newTarea.categories,
-                      categories[index].category,
-                      newTarea.important ? 'importante' : '',
-                    ],
-                  },
-                ]);
-                setNewTarea({
-                  ...newTarea,
-                  date_start: '',
-                  date_end: '',
-                  description: '',
-                  important: false,
-                  categories: ['tareas'],
-                });
-              }}
-            >
-              Agregar Tarea
-            </button>
-          </span>
+                    date_start: '',
+                    date_end: '',
+                    description: '',
+                    important: false,
+                    categories: ['tareas'],
+                  });
+                }}
+              >
+                Agregar Tarea
+              </button>
+            </span>
+          )}
         </div>
       )}
     </>

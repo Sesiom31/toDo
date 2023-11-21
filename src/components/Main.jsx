@@ -1,14 +1,19 @@
 import { TareasList } from './TareasList';
 import PropTypes from 'prop-types';
 
-function Main({ categories, index, tareas, setTareas }) {
+function Main({ categories, index, tareas, setTareas, setIdTarea, setRightIsVisible }) {
   const tareaDisplay = tareas.filter((tarea) =>
     tarea.categories.includes(categories[index].category)
   );
 
   return (
-    <main className=" relative left-0 right-0 bottom-0 h-[calc(100%-200px)] mt-0.5 overflow-auto   ">
-      <TareasList tareasList={tareaDisplay} setTareas={setTareas} />
+    <main className=" relative  h-[calc(100%)] w-full my-5 overflow-y-auto overflow-x-hidden  ">
+      <TareasList
+        tareasList={tareaDisplay}
+        setTareas={setTareas}
+        setIdTarea={setIdTarea}
+        setRightIsVisible={setRightIsVisible}
+      />
     </main>
   );
 }
@@ -18,6 +23,8 @@ Main.propTypes = {
   index: PropTypes.number.isRequired,
   tareas: PropTypes.array.isRequired,
   setTareas: PropTypes.func.isRequired,
+  setIdTarea: PropTypes.func.isRequired,
+  setRightIsVisible: PropTypes.func.isRequired,
 };
 
 export default Main;
