@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useContext } from 'react';
 import { Tarea } from './TareasList';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { PasosList } from './PasosList';
 import BtnIcon from './BtnIcon';
 import { ArrowRightOnRectangleIcon, TrashIcon } from '@heroicons/react/24/solid';
@@ -28,8 +28,6 @@ function AsideRight({ idPickTarea, rightIsVisible, setRightIsVisible }) {
     categories: ['tareas', 'dia'],
     pasos: [],
   };
-  
-  console.log(tarea)
 
   useEffect(() => {
     setDescriptionUpdate(tarea.description);
@@ -174,9 +172,11 @@ function AsideRight({ idPickTarea, rightIsVisible, setRightIsVisible }) {
 }
 
 AsideRight.propTypes = {
-  idPickTarea: Proptypes.number.isRequired,
-  rightIsVisible: Proptypes.bool.isRequired,
-  setRightIsVisible: Proptypes.func.isRequired,
+  idPickTarea: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired])
+    .isRequired,
+
+  rightIsVisible: PropTypes.bool.isRequired,
+  setRightIsVisible: PropTypes.func.isRequired,
 };
 
 export default AsideRight;

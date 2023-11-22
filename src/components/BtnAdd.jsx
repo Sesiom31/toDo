@@ -128,10 +128,12 @@ function BtnAdd({ categorieName }) {
                     description: newDescription,
                     date_end: dateEnd || '',
                     important: isImportant,
-                    categories: [categorieName, isImportant && 'importante'],
+                    categories: [categorieName, isImportant ? 'importante': ''],
                   });
                   setOpenInput(false);
                   setNewDescription('');
+                  setDateEnd('');
+                  setIsImportant(false);
                 }}
               >
                 Agregar Tarea

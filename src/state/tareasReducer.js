@@ -2,6 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const tareasReducer = (tareas, action) => {
   switch (action.type) {
+
+    case 'CARGAR_TAREAS': {
+      return action.tareas;
+    }
+      
     case 'AGREGAR_TAREA': {
       const newTarea = {
         id: uuidv4(),
@@ -20,8 +25,27 @@ export const tareasReducer = (tareas, action) => {
       return tareas.map((t) => (t.id === action.id ? { ...t, completed: !t.completed } : t));
     }
 
+    
     case 'TOGGLE_IMPORTANT': {
-      return tareas.map((t) => (t.id === action.id ? { ...t, important: !t.important } : t));
+      return tareas.map((t) => {
+        if (t.id === action.id) {
+          const nuevasCategorias = new Set(t.categories);
+
+          if (t.important) {
+            nuevasCategorias.delete('importante');
+          } else {
+            nuevasCategorias.add('importante');
+          }
+
+          return {
+            ...t,
+            important: !t.important,
+            categories: [...nuevasCategorias],
+          };
+        } else {
+          return t;
+        }
+      });
     }
 
     case 'AGREGAR_PASO': {

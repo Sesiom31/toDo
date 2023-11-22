@@ -79,6 +79,7 @@ export function Tarea({ tarea, setRightIsVisible, setLeftIsVisible, setIdPickTar
           classNameIcon={`${tarea.important ? 'text-orange-500' : ' text-gray-400'}`}
           onClick={(e) => {
             e.stopPropagation();
+            console.log(tarea)
             dispatch({
               type: 'TOGGLE_IMPORTANT',
               id: tarea.id,

@@ -41,7 +41,10 @@ function Header({ textFilter, setTextFilter, setIsDark, isDark }) {
         </label>
       </section>
 
-      <div className="flex items-center" onClick={()=> setIsDark(!isDark)}>
+      <div className="flex items-center" onClick={()=> {
+        localStorage.setItem('isDark', !isDark)
+        setIsDark(!isDark)
+      }}>
         {isDark ? <BtnIcon icon={SunIcon} /> : <BtnIcon icon={MoonIcon} />}
       </div>
     </header>
