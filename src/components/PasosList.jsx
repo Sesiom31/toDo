@@ -1,11 +1,10 @@
 import { CheckIcon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import { TareasDispatchContext } from '../state/ToDoContext';
+import { useTareasDispatch } from '../state/ToDoContext';
 
 export function Paso({paso, tarea}) {
-  const dispatch = useContext(TareasDispatchContext);
+  const dispatch = useTareasDispatch()
 
   return (
     <li

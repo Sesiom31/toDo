@@ -1,19 +1,19 @@
 import { CalendarDaysIcon, StarIcon } from '@heroicons/react/24/solid';
 import BtnIcon from './BtnIcon';
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect} from 'react';
 import Proptypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { TareasDispatchContext } from '../state/ToDoContext';
+import { useTareasDispatch } from '../state/ToDoContext';
 
 function BtnAdd({ categorieName }) {
+  const dispatch = useTareasDispatch()
   const [newDescription, setNewDescription] = useState('');
   const [dateEnd, setDateEnd] = useState('');
   const [isImportant, setIsImportant] = useState(false);
   const [openInput, setOpenInput] = useState(false);
   const [calenderIsOpen, setCalenderIsOpen] = useState(false);
   
-  const dispatch = useContext(TareasDispatchContext);
   
   const inputRef = useRef(null);
   const calendarRef = useRef(null);

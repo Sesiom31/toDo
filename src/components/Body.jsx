@@ -1,6 +1,6 @@
 import {  useState } from 'react';
-import AsideLeft from './AsideLeft';
 import { categories as categoriesArray } from '../data/categories';
+import AsideLeft from './AsideLeft';
 import HeaderBody from './HeaderBody';
 import Main from './Main';
 import AsideRight from './AsideRight';

@@ -1,11 +1,10 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import { TareasContext } from '../state/ToDoContext';
+import { useTareas } from '../state/ToDoContext';
 
 function List({ categorie, setCategories, setIndexCategory}) {
-  const tareas = useContext(TareasContext);
+  const tareas = useTareas();
 
   let count = 0;
   tareas.forEach((tarea) => {

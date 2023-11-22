@@ -1,7 +1,7 @@
 import BtnIcon from './BtnIcon';
 import { Square2StackIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import CatergoriesList from './CatergoriesList';
 import { useState, useRef, useEffect } from 'react';
+import CatergoriesList from './CatergoriesList';
 import PropTypes from 'prop-types';
 
 function AsideLeft({ categories, setCategories, setIndexCategory, leftIsVisible, setLeftIsVisible }) {

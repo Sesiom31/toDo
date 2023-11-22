@@ -6,14 +6,12 @@ import { tareasReducer } from './state/tareasReducer';
 
 function App() {
   const [tareas, dispatch] = useReducer(tareasReducer, []);
-
-  const [textFilter, setTextFilter] = useState('');
   const [isDark, setIsDark] = useState(false); // estado del tema [claro, oscuro]
+  const [textFilter, setTextFilter] = useState('');
 
   const tareasFiltradas = tareas.filter((tarea) => {
     return tarea.description.toLowerCase().includes(textFilter.toLowerCase());
   });
-
 
   useEffect(() => {
     const storedTareas = JSON.parse(localStorage.getItem('tareas'));
@@ -22,16 +20,15 @@ function App() {
     }
 
     const storedTema = JSON.parse(localStorage.getItem('isDark'));
-    if( storedTema !== null) {
-      setIsDark(storedTema)
+    if (storedTema !== null) {
+      setIsDark(storedTema);
     }
   }, []);
 
   useEffect(() => {
-    console.log('establecer tareas')
+    console.log('establecer tareas');
     localStorage.setItem('tareas', JSON.stringify(tareas));
   }, [tareas]);
-
 
   return (
     <TareasContext.Provider value={tareas}>

@@ -2,11 +2,10 @@ import { ArrowsUpDownIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import Proptypes from 'prop-types';
 import BtnAdd from './BtnAdd';
-import { useContext } from 'react';
-import { TareasDispatchContext } from '../state/ToDoContext';
+import {  useTareasDispatch } from '../state/ToDoContext';
 
 function HeaderBody({ categorie, setLeftIsVisible, setRightIsVisible }) {
-  const dispatch = useContext(TareasDispatchContext);
+  const dispatch = useTareasDispatch()
   return (
     <>
       <section className="flex justify-between items-center w-auto h-16 mt-6 px-4 relative z-40 md:px-3 lg:py-4 md:mr-2 ">

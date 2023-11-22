@@ -3,11 +3,10 @@ import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { formatDate } from '../data/formato';
-import { useContext } from 'react';
-import { TareasDispatchContext } from '../state/ToDoContext';
+import { useTareasDispatch } from '../state/ToDoContext';
 
 export function Tarea({ tarea, setRightIsVisible, setLeftIsVisible, setIdPickTarea }) {
-  const dispatch = useContext(TareasDispatchContext);
+  const dispatch = useTareasDispatch()
   return (
     <li
       className={` ${

@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import { Tarea } from './TareasList';
-import PropTypes from 'prop-types';
 import { PasosList } from './PasosList';
+import PropTypes from 'prop-types';
 import BtnIcon from './BtnIcon';
 import { ArrowRightOnRectangleIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { TareasContext, TareasDispatchContext } from '../state/ToDoContext';
+import { useTareas, useTareasDispatch } from '../state/ToDoContext';
 
 function AsideRight({ idPickTarea, rightIsVisible, setRightIsVisible }) {
-  const tareas = useContext(TareasContext);
-  const dispatch = useContext(TareasDispatchContext);
+  const tareas = useTareas()
+  const dispatch = useTareasDispatch()
 
   const [addPasos, setAddPasos] = useState(false);
   const [descriptionPasos, setDescriptionPasos] = useState('');
