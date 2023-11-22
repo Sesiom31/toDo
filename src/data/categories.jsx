@@ -2,7 +2,7 @@ import { SunIcon, StarIcon, CalendarDaysIcon, ListBulletIcon } from '@heroicons/
 
 export const categories = [
   {
-    id: 1,
+    id: 0,
     name: 'Mi Día',
     category: 'dia',
     icon: SunIcon,
@@ -10,7 +10,7 @@ export const categories = [
     added:false
   },
   {
-    id: 2,
+    id: 1,
     name: 'Importante',
     category: 'importante',
     icon: StarIcon,
@@ -18,7 +18,7 @@ export const categories = [
     added:false
   },
   {
-    id: 3,
+    id: 2,
     name: 'Planeado',
     category: 'planeado',
     icon: CalendarDaysIcon,
@@ -26,7 +26,7 @@ export const categories = [
     added:false
   },
   {
-    id: 4,
+    id: 3,
     name: 'Tareas',
     category: 'tareas',
     icon: ListBulletIcon,

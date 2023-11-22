@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import AsideLeft from './AsideLeft';
 import { categories as categoriesArray } from '../data/categories';
 import HeaderBody from './HeaderBody';
@@ -6,31 +6,15 @@ import Main from './Main';
 import AsideRight from './AsideRight';
 import Proptypes from 'prop-types';
 
-function Body({tareas, setTareas, nextId}) {
-  const [index, setIndex] = useState(0); // indice categoria
+function Body({ tareasFiltradas }) {
+  
+  const [indexCategory, setIndexCategory] = useState(0); // indice categoria
   const [categories, setCategories] = useState(categoriesArray); // lista categorias
   const [leftIsVisible, setLeftIsVisible] = useState(false); // estado del aside izquierdo
-  const [rightIsVisible, setRightIsVisible] = useState(false); // estado del aside derecho
-  const [idTarea, setIdTarea] = useState(0); // id de la tarea
+  const [rightIsVisible, setRightIsVisible] = useState(false); // estado del aside derecho 
+  const [idPickTarea, setIdPickTarea] = useState(0); // id de la tarea seleccionada
 
-  
-  
-  let tarea = tareas.find((t) => t.id === idTarea); // tarea actual
-
-  if (tarea === undefined) {
-    tarea = {
-      id: 1,
-      description: ' ',
-      completed: false,
-      date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 ',
-      date_end: 'Sun Nov 19 2023 16:38:50 GMT-0500 ',
-      important: false,
-      categories: ['tareas'],
-      pasos: [{ id: 1, description: ' ', completed: false }], // pasos de la tarea
-    };
-  }
-
-  console.log(tarea);
+  let categorie = categories[indexCategory]  
 
   return (
     <div
@@ -41,38 +25,31 @@ function Body({tareas, setTareas, nextId}) {
       <AsideLeft
         categories={categories}
         setCategories={setCategories}
-        setIndex={setIndex}
+        setIndexCategory={setIndexCategory}
         leftIsVisible={leftIsVisible}
         setLeftIsVisible={setLeftIsVisible}
-        tareas={tareas}
       />
 
       <section
         className={`transition-[width] h-full overflow-hidden w-screen flex flex-col relative will-change-[width] md:ml-2  `}
       >
         <HeaderBody
-          index={index}
-          categories={categories}
+          categorie={categorie}
           setLeftIsVisible={setLeftIsVisible}
           setRightIsVisible={setRightIsVisible}
-          setTareas={setTareas}
-          id={nextId}
         />
 
         <Main
-          tareas={tareas}
-          categories={categories}
-          index={index}
-          setTareas={setTareas}
-          setIdTarea={setIdTarea}
+          tareasFiltradas={tareasFiltradas}
+          categorie={categorie}
           setLeftIsVisible={setLeftIsVisible}
           setRightIsVisible={setRightIsVisible}
+          setIdPickTarea={setIdPickTarea}
         />
       </section>
 
       <AsideRight
-        tarea={tarea}
-        setTareas={setTareas}
+        idPickTarea={idPickTarea}
         rightIsVisible={rightIsVisible}
         setRightIsVisible={setRightIsVisible}
       />
@@ -81,9 +58,7 @@ function Body({tareas, setTareas, nextId}) {
 }
 
 Body.propTypes = {
-  tareas: Proptypes.array.isRequired,
-  setTareas: Proptypes.func.isRequired,
-  nextId: Proptypes.number.isRequired,
+  tareasFiltradas: Proptypes.array.isRequired,
 }
 
 export default Body;

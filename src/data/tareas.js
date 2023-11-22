@@ -20,7 +20,7 @@ export const tareasList = [
     pasos: [],
   },
   {
-    id: 4,
+    id: 3,
     description: 'Ver series',
     completed: false,
     date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
@@ -30,7 +30,7 @@ export const tareasList = [
     pasos: [],
   },
   {
-    id: 5,
+    id: 4,
     description: 'Ver el planeta de los simios',
     completed: true,
     date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
@@ -40,9 +40,9 @@ export const tareasList = [
     pasos: [],
   },
   {
-    id: 6,
+    id: 5,
     description: 'Conseguir trabajo',
-    completed: false,
+    completed: true,
     date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
     date_end: '',
     important: true,

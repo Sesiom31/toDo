@@ -1,26 +1,19 @@
 import BtnIcon from './BtnIcon';
 import { Square2StackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import CatergoriesList from './CatergoriesList';
-import { useState, useRef, useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function AsideLeft({
-  categories,
-  setCategories,
-  setIndex,
-  leftIsVisible,
-  setLeftIsVisible,
-  tareas,
-}) {
+function AsideLeft({ categories, setCategories, setIndexCategory, leftIsVisible, setLeftIsVisible }) {
   const [openInput, setOpenInput] = useState(false);
   const [nameList, setNameList] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
     if (openInput) {
-      inputRef.current.focus();    }
-  },[openInput])
- 
+      inputRef.current.focus();
+    }
+  }, [openInput]);
 
   return (
     <aside
@@ -42,15 +35,21 @@ function AsideLeft({
       <section>
         <CatergoriesList
           categories={categories}
-          setCategories={setCategories}
-          setIndex={setIndex}
-          setLeftIsVisible={setLeftIsVisible}
-          tareas={tareas}
+          setCategories={setCategories} // para eliminar listas agregadas no las listas por defecto
+          setIndexCategory={setIndexCategory}
         />
       </section>
 
       <div className="flex w-full px-2 flex-col">
-        {openInput ? (
+        {!openInput ? (
+          <button
+            type="button"
+            onClick={() => setOpenInput(true)}
+            className="w-full text-sm bg-orange-600 text-gray-200 py-1 px-2 rounded-md"
+          >
+            Añadir una lista...
+          </button>
+        ) : (
           <div className="flex flex-col gap-2 items-end">
             <input
               ref={inputRef}
@@ -69,7 +68,7 @@ function AsideLeft({
                   setCategories((prevState) => [
                     ...prevState,
                     {
-                      id: prevState.length + 1,
+                      id: prevState.length,
                       name: nameList,
                       category: nameList.toLowerCase(),
                       icon: Square2StackIcon,
@@ -84,14 +83,6 @@ function AsideLeft({
               </button>
             )}
           </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setOpenInput(true)}
-            className="w-full text-sm bg-orange-600 text-gray-200 py-1 px-2 rounded-md"
-          >
-            Añadir una lista...
-          </button>
         )}
       </div>
     </aside>
@@ -101,10 +92,9 @@ function AsideLeft({
 AsideLeft.propTypes = {
   categories: PropTypes.array.isRequired,
   setCategories: PropTypes.func.isRequired,
-  setIndex: PropTypes.func.isRequired,
+  setIndexCategory: PropTypes.func.isRequired,
   leftIsVisible: PropTypes.bool.isRequired,
   setLeftIsVisible: PropTypes.func.isRequired,
-  tareas: PropTypes.array.isRequired,
 };
 
 export default AsideLeft;

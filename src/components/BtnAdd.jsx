@@ -1,23 +1,20 @@
 import { CalendarDaysIcon, StarIcon } from '@heroicons/react/24/solid';
 import BtnIcon from './BtnIcon';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import Proptypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { TareasDispatchContext } from '../state/ToDoContext';
 
-function BtnAdd({ setTareas, id, categories, index }) {
+function BtnAdd({ categorieName }) {
+  const [newDescription, setNewDescription] = useState('');
+  const [dateEnd, setDateEnd] = useState('');
+  const [isImportant, setIsImportant] = useState(false);
   const [openInput, setOpenInput] = useState(false);
   const [calenderIsOpen, setCalenderIsOpen] = useState(false);
-  const [newTarea, setNewTarea] = useState({
-    id: 0,
-    description: '',
-    completed: false,
-    date_start: '',
-    date_end: '',
-    important: false,
-    categories: ['tareas'],
-    pasos: [],
-  });
+  
+  const dispatch = useContext(TareasDispatchContext);
+  
   const inputRef = useRef(null);
   const calendarRef = useRef(null);
 
@@ -28,7 +25,6 @@ function BtnAdd({ setTareas, id, categories, index }) {
   }, [openInput]);
 
   useEffect(() => {
-    console.log('efect calendar');
     const handleClickOutside = (event) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
         setCalenderIsOpen(false);
@@ -55,7 +51,9 @@ function BtnAdd({ setTareas, id, categories, index }) {
           >
             <div className="flex items-center gap-8 w-10/12 h-full md:gap-16">
               <span className="w-4 h-4 border border-orange-600 block rounded-full dark:border-orange-500"></span>
-              <h3 className="text-[0.9rem] text-orange-600 dark:text-orange-400 dark:font-extralight">Agregar Tarea</h3>
+              <h3 className="text-[0.9rem] text-orange-600 dark:text-orange-400 dark:font-extralight">
+                Agregar Tarea
+              </h3>
             </div>
 
             <span></span>
@@ -66,14 +64,14 @@ function BtnAdd({ setTareas, id, categories, index }) {
               <span className="border border-orange-600 h-4 w-4 rounded-full dark:text-orange-500 "></span>
               <input
                 ref={inputRef}
-                value={newTarea.description}
+                value={newDescription}
                 type="text"
                 placeholder="Agregar Tarea"
                 className=" h-[80%]  w-[95%] text-[0.9rem] placeholder:text-[0.9rem] 
                  placeholder:text-gray-400 pt-0.5 placeholder:pt-0.5  outline-none px-8  
                 md:px-16 dark:bg-zinc-700 dark:text-white dark:shadow-none "
                 onChange={(e) => {
-                  setNewTarea({ ...newTarea, description: e.target.value });
+                  setNewDescription(e.target.value);
                 }}
               />
             </div>
@@ -90,7 +88,6 @@ function BtnAdd({ setTareas, id, categories, index }) {
                 className="text-orange-600 dark:text-orange-500"
                 onClick={(e) => {
                   e.stopPropagation();
-                  console.log('hola');
                   setCalenderIsOpen(!calenderIsOpen);
                 }}
               />
@@ -100,7 +97,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
                     inline
                     minDate={new Date()}
                     onChange={(date) => {
-                      setNewTarea({ ...newTarea, date_end: date });
+                      setDateEnd(date);
                     }}
                   />
                 </div>
@@ -110,46 +107,31 @@ function BtnAdd({ setTareas, id, categories, index }) {
             <div title="Marcar como importante" className="flex items-center">
               <BtnIcon
                 icon={StarIcon}
-                className={`${newTarea.important ? 'text-orange-600' : ' text-gray-400 '} ${
-                  categories[index].category === 'importante' && 'text-orange-600 '
+                className={`${isImportant ? 'text-orange-600' : ' text-gray-400 '} ${
+                  categorieName === 'importante' && 'text-orange-600 '
                 } `}
                 onClick={() => {
-                  setNewTarea({ ...newTarea, important: !newTarea.important });
+                  setIsImportant(!isImportant);
                 }}
               />
             </div>
           </div>
 
-          {newTarea.description.trim() !== '' && (
+          {newDescription.trim() !== '' && (
             <span className="flex items-center ">
               <button
                 type="button"
                 className={` bg-orange-600 text-gray-200 py-1 px-3 pb-1.5 text-xs rounded-md hover:bg-orange-700`}
                 onClick={() => {
-                  console.log(newTarea);
-                  setOpenInput(false);
-                  setTareas((prevState) => [
-                    ...prevState,
-                    {
-                      ...newTarea,
-                      id: id,
-                      date_start: new Date(),
-                      important: categories[index].category === 'importante' ? true : false,
-                      categories: [
-                        ...newTarea.categories,
-                        categories[index].category,
-                        newTarea.important ? 'importante' : '',
-                      ],
-                    },
-                  ]);
-                  setNewTarea({
-                    ...newTarea,
-                    date_start: '',
-                    date_end: '',
-                    description: '',
-                    important: false,
-                    categories: ['tareas'],
+                  dispatch({
+                    type: 'AGREGAR_TAREA',
+                    description: newDescription,
+                    date_end: dateEnd || '',
+                    important: isImportant,
+                    categories: [categorieName, isImportant && 'importante'],
                   });
+                  setOpenInput(false);
+                  setNewDescription('');
                 }}
               >
                 Agregar Tarea
@@ -163,10 +145,7 @@ function BtnAdd({ setTareas, id, categories, index }) {
 }
 
 BtnAdd.propTypes = {
-  setTareas: Proptypes.func.isRequired,
-  id: Proptypes.number.isRequired,
-  categories: Proptypes.array.isRequired,
-  index: Proptypes.number.isRequired,
+  categorieName: Proptypes.string.isRequired,
 };
 
 export default BtnAdd;

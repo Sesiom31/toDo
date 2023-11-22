@@ -1,8 +1,12 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { TareasContext } from '../state/ToDoContext';
 
-function List({ categorie, setCategories, setIndex, tareas }) {
+function List({ categorie, setCategories, setIndexCategory}) {
+  const tareas = useContext(TareasContext);
+
   let count = 0;
   tareas.forEach((tarea) => {
     if (tarea.categories.includes(categorie.category)) {
@@ -16,7 +20,7 @@ function List({ categorie, setCategories, setIndex, tareas }) {
       dark:hover:bg-zinc-400 dark:hover:text-gray-200 dark:hover:bg-opacity-20  "
       onClick={(e) => {
         e.stopPropagation();
-        setIndex(categorie.id - 1);
+        setIndexCategory(categorie.id);
       }}
     >
       <section className="flex items-center gap-2 ">
@@ -26,18 +30,16 @@ function List({ categorie, setCategories, setIndex, tareas }) {
 
       <div className=" flex items-center gap-2">
         {categorie.added && (
-          <span data-tooltip='Eliminar lista'>
-
-          <BtnIcon
-            icon={TrashIcon}
-            className="w-[18px] h-[18px] p-0"
-            onClick={(e) => {
-              console.log('delete');
-              e.stopPropagation();
-              setIndex(0);
-              setCategories((prevState) => prevState.filter((cat) => cat.id !== categorie.id));
-            }}
-          />
+          <span data-tooltip="Eliminar lista">
+            <BtnIcon
+              icon={TrashIcon}
+              className="w-[18px] h-[18px] p-0"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIndexCategory(0);
+                setCategories((prevState) => prevState.filter((cat) => cat.id !== categorie.id));
+              }}
+            />
           </span>
         )}
         <span className="text-sm">{count}</span>
@@ -46,17 +48,15 @@ function List({ categorie, setCategories, setIndex, tareas }) {
   );
 }
 
-function CatergoriesList({ categories, setCategories, setIndex, tareas }) {
-  /* console.log(categories); */
+function CatergoriesList({ categories, setCategories, setIndexCategory }) {
   return (
     <ul>
       {categories.map((categorie) => (
         <List
           key={categorie.id}
           categorie={categorie}
-          setCategories={setCategories}
-          setIndex={setIndex}
-          tareas={tareas}
+          setCategories={setCategories} // para eliminar la categoria
+          setIndexCategory={setIndexCategory}
         />
       ))}
     </ul>
@@ -66,15 +66,13 @@ function CatergoriesList({ categories, setCategories, setIndex, tareas }) {
 List.propTypes = {
   categorie: PropTypes.object.isRequired,
   setCategories: PropTypes.func.isRequired,
-  setIndex: PropTypes.func.isRequired,
-  tareas: PropTypes.array.isRequired,
+  setIndexCategory: PropTypes.func.isRequired,
 };
 
 CatergoriesList.propTypes = {
   categories: PropTypes.array.isRequired,
   setCategories: PropTypes.func.isRequired,
-  setIndex: PropTypes.func.isRequired,
-  tareas: PropTypes.array.isRequired,
+  setIndexCategory: PropTypes.func.isRequired,
 };
 
 export default CatergoriesList;

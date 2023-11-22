@@ -1,11 +1,15 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { Tarea } from './TareasList';
 import Proptypes from 'prop-types';
 import { PasosList } from './PasosList';
 import BtnIcon from './BtnIcon';
 import { ArrowRightOnRectangleIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { TareasContext, TareasDispatchContext } from '../state/ToDoContext';
 
-function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
+function AsideRight({ idPickTarea, rightIsVisible, setRightIsVisible }) {
+  const tareas = useContext(TareasContext);
+  const dispatch = useContext(TareasDispatchContext);
+
   const [addPasos, setAddPasos] = useState(false);
   const [descriptionPasos, setDescriptionPasos] = useState('');
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -14,7 +18,18 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
   const inputRef = useRef(null);
   const inputDescriptionRef = useRef(null);
 
-  console.log(descriptionUpdate);
+  const tarea = tareas.find((t) => t.id === idPickTarea) || {
+    id: 1,
+    description: 'Hacer ejercicio',
+    completed: false,
+    date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
+    date_end: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
+    important: false,
+    categories: ['tareas', 'dia'],
+    pasos: [],
+  };
+  
+  console.log(tarea)
 
   useEffect(() => {
     setDescriptionUpdate(tarea.description);
@@ -42,7 +57,8 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
       absolute right-0  md:relative bg-white z-50 overflow-hidden overflow-y-auto md:will-change-[width] py-4
       dark:bg-zinc-600 dark:text-gray-200 dark:shadow-none `}
     >
-      <Tarea tarea={tarea} setTareas={setTareas} />
+      <Tarea tarea={tarea} />
+
       <section className="mt-1 mx-1">
         <div>
           {!openUpdate ? (
@@ -72,11 +88,10 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                   onClick={() => {
                     setDescriptionUpdate('');
                     setOpenUpdate(false);
-                    setTareas((prevTareas) => {
-                      const newTareas = prevTareas.map((t) =>
-                        t.id === tarea.id ? { ...t, description: descriptionUpdate } : t
-                      );
-                      return newTareas;
+                    dispatch({
+                      type: 'ACTUALIZAR_DESCRIPTION_TAREA',
+                      id: idPickTarea,
+                      description: descriptionUpdate,
                     });
                   }}
                   className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto dark:bg-orange-600`}
@@ -116,23 +131,10 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
                   onClick={() => {
                     setDescriptionPasos('');
                     setAddPasos(false);
-                    setTareas((prevTareas) => {
-                      const newTareas = prevTareas.map((t) =>
-                        t.id === tarea.id
-                          ? {
-                              ...t,
-                              pasos: [
-                                ...t.pasos,
-                                {
-                                  id: t.pasos.length + 1,
-                                  description: descriptionPasos,
-                                  completed: false,
-                                },
-                              ],
-                            }
-                          : t
-                      );
-                      return newTareas;
+                    dispatch({
+                      type: 'AGREGAR_PASO',
+                      id: idPickTarea,
+                      description: descriptionPasos,
                     });
                   }}
                   className={`text-gray-200 bg-orange-700 rounded-md text-xs px-2 py-0.5 pb-1  w-auto dark:bg-orange-600`}
@@ -146,7 +148,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
       </section>
 
       <section className=" max-h-[200px] h-auto overflow-auto my-8">
-        <PasosList tareaObj={tarea} setTareas={setTareas} id={tarea.id} />
+        <PasosList tarea={tarea} />
       </section>
 
       <section className="flex absolute justify-between w-full  px-10 bottom-0 py-5">
@@ -158,9 +160,9 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
           data-tooltip="Eliminar tarea"
           onClick={() => {
             setRightIsVisible(false);
-            setTareas((prevTareas) => {
-              const newTareas = prevTareas.filter((t) => t.id !== tarea.id);
-              return newTareas;
+            dispatch({
+              type: 'ELIMINAR_TAREA',
+              id: idPickTarea,
             });
           }}
         >
@@ -172,8 +174,7 @@ function AsideRight({ tarea, setTareas, rightIsVisible, setRightIsVisible }) {
 }
 
 AsideRight.propTypes = {
-  tarea: Proptypes.object.isRequired,
-  setTareas: Proptypes.func.isRequired,
+  idPickTarea: Proptypes.number.isRequired,
   rightIsVisible: Proptypes.bool.isRequired,
   setRightIsVisible: Proptypes.func.isRequired,
 };

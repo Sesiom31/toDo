@@ -1,27 +1,39 @@
-
-
 import Body from './components/Body';
 import Header from './components/Header';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
+import { tareasList } from './data/tareas';
+import { TareasContext, TareasDispatchContext } from './state/ToDoContext';
+import { tareasReducer } from './state/tareasReducer';
 
 function App() {
-  const [tareas, setTareas] = useState([]);
+  const [tareas, dispatch] = useReducer(tareasReducer, tareasList);
+
   const [textFilter, setTextFilter] = useState('');
   const [isDark, setIsDark] = useState(false); // estado del tema [claro, oscuro]
-
-
-  let nextId = tareas.length + 1; // id de la siguiente tarea
 
   const tareasFiltradas = tareas.filter((tarea) => {
     return tarea.description.toLowerCase().includes(textFilter.toLowerCase());
   });
 
   return (
-    <div className={` ${isDark && 'dark'} 2xl:container selection: w-full h-screen overflow-hidden  `}>
-      <Header textFilter={textFilter} setTextFilter={setTextFilter} setIsDark= {setIsDark} isDark ={isDark} />
+    <TareasContext.Provider value={tareas}>
+      <TareasDispatchContext.Provider value={dispatch}>
+        <div
+          className={` ${
+            isDark && 'dark'
+          } 2xl:container selection: w-full h-screen overflow-hidden  `}
+        >
+          <Header
+            textFilter={textFilter}
+            setTextFilter={setTextFilter}
+            setIsDark={setIsDark}
+            isDark={isDark}
+          />
 
-      <Body tareas={tareasFiltradas} setTareas={setTareas} nextId={nextId} />
-    </div>
+          <Body tareasFiltradas={tareasFiltradas} />
+        </div>
+      </TareasDispatchContext.Provider>
+    </TareasContext.Provider>
   );
 }
 

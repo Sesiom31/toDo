@@ -2,8 +2,11 @@ import { ArrowsUpDownIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import BtnIcon from './BtnIcon';
 import Proptypes from 'prop-types';
 import BtnAdd from './BtnAdd';
+import { useContext } from 'react';
+import { TareasDispatchContext } from '../state/ToDoContext';
 
-function HeaderBody({ index, categories, setLeftIsVisible, setRightIsVisible, setTareas, id }) {
+function HeaderBody({ categorie, setLeftIsVisible, setRightIsVisible }) {
+  const dispatch = useContext(TareasDispatchContext);
   return (
     <>
       <section className="flex justify-between items-center w-auto h-16 mt-6 px-4 relative z-40 md:px-3 lg:py-4 md:mr-2 ">
@@ -18,7 +21,7 @@ function HeaderBody({ index, categories, setLeftIsVisible, setRightIsVisible, se
           />
           <div className="-mt-4">
             <h3 className=" capitalize font-semibold tracking-widest text-2xl">
-              {categories[index].name}
+              {categorie.name}
             </h3>
             <span className=" text-xs opacity-80">{new Date().toLocaleDateString()}</span>
           </div>
@@ -27,23 +30,23 @@ function HeaderBody({ index, categories, setLeftIsVisible, setRightIsVisible, se
         <div
           className="flex items-start h-full py-1 md:pr-3"
           onClick={() => {
-            setTareas((prevTareas) => [...prevTareas].reverse());
+            dispatch({
+              type: 'REVERSE_TAREAS',
+            })
           }}
         >
           <BtnIcon icon={ArrowsUpDownIcon} className=" dark:text-white" />
         </div>
       </section>
-      <BtnAdd setTareas={setTareas} id={id} categories={categories} index={index} />
+
+      <BtnAdd categorieName={categorie.category} />
     </>
   );
 }
 
 HeaderBody.propTypes = {
-  index: Proptypes.number.isRequired,
-  categories: Proptypes.array.isRequired,
+  categorie: Proptypes.object.isRequired,
   setLeftIsVisible: Proptypes.func.isRequired,
-  setTareas: Proptypes.func.isRequired,
-  id: Proptypes.number.isRequired,
   setRightIsVisible: Proptypes.func.isRequired,
 };
 

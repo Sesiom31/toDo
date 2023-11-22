@@ -1,33 +1,32 @@
 import { TareasList } from './TareasList';
 import PropTypes from 'prop-types';
 
-function Main({ categories, index, tareas, setTareas, setIdTarea, setRightIsVisible, setLeftIsVisible }) {
-  const tareaDisplay = tareas.filter((tarea) =>
-    tarea.categories.includes(categories[index].category)
+function Main({ tareasFiltradas, categorie, setRightIsVisible, setLeftIsVisible, setIdPickTarea }) {
+  const tareasDisplay = tareasFiltradas.filter((tarea) =>
+    tarea.categories.includes(categorie.category)
   );
 
   return (
-    <main className=" relative  h-[calc(100%)] w-full my-5 overflow-y-auto overflow-x-hidden grow shrink 
-    dark:text-gray-200  ">
+    <main
+      className=" relative  h-[calc(100%)] w-full my-5 overflow-y-auto overflow-x-hidden grow shrink 
+    dark:text-gray-200  "
+    >
       <TareasList
-        tareasList={tareaDisplay}
-        setTareas={setTareas}
-        setIdTarea={setIdTarea}
+        tareasDisplay={tareasDisplay}
         setRightIsVisible={setRightIsVisible}
         setLeftIsVisible={setLeftIsVisible}
+        setIdPickTarea={setIdPickTarea}
       />
     </main>
   );
 }
 
 Main.propTypes = {
-  categories: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
-  tareas: PropTypes.array.isRequired,
-  setTareas: PropTypes.func.isRequired,
-  setIdTarea: PropTypes.func.isRequired,
+  tareasFiltradas: PropTypes.array.isRequired,
+  categorie: PropTypes.object.isRequired,
   setRightIsVisible: PropTypes.func.isRequired,
   setLeftIsVisible: PropTypes.func.isRequired,
+  setIdPickTarea: PropTypes.func.isRequired,
 };
 
 export default Main;
