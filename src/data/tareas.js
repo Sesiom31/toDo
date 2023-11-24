@@ -49,5 +49,15 @@ export const tareasList = [
     categories: ['tareas', 'planeado', 'importante'],
     pasos: [],
   },
+  {
+    id: 6,
+    description: 'Verano',
+    completed: true,
+    date_start: 'Sun Nov 19 2023 16:38:50 GMT-0500 (hora estándar de Perú)',
+    date_end: '',
+    important: true,
+    categories: ['tareas', 'planeado', 'importante'],
+    pasos: [],
+  },
 ];
 
